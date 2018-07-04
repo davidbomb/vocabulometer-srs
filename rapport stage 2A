@@ -1,0 +1,56 @@
+Description:
+
+Osaka Prefectoral University (OPU)
+France un grand laboratoire -> laBRI
+Osaka -> pleins de petits labos au sein d'une grande université
+Labo : < 50 personnes avec environ 30 éleves et 5 ou 6 enseignants
+IDAKS : compagnie au sein de OPU qui pilote unn projet sur 5 ans avec financement de l'état
+-> permet de faire venir des "visiting researchers" sans passer par les frais d'université.
+ 
+
+
+Reunion toutes les semaines
+Organisation: 
+Chacun parles d'un article scientifique en rappport avec sa thematique, ... etat de l'art. Permet de connaitre plus sur le sujzt, savoir ce qui a été fait, ce qui peut etre amélioré ...
+Ensuite, rappel de ses taches, bilan du travail effectué puis planification des taches futures...
+1ere reunion: rien a dire mais permet de mieux cerner le travail et l'avancement de chacun : contextualisation
+
+
+Mini journal de bord:
+
+1ers jours
+Travail avec un 3a info de l'enseirb
+Comprendre ce qu'il a deja fait (stage de 2a aussi a osaka opu) et lister les axes de travail possibles
+Discussion et reflexion avec lui et le maitre de stage pour determiner un sujet de stage avec la contrainte des delais (3 mois). Sujet ne doit pas etre trop long
+Recherche -> grande liberté sur le choix du travail, avec peu de restriction et bcp d'idées personnelles et d'autonomie.
+
+
+apprentissage de angular 5 a travers un tuto
+étape de compréhension du travail que je récupère avant de me lancer dans du developpement.
+browsing sur internet de ce qui a déja été publié sur le sujet, afin d'en apprendre plus et d'avoir une vision globale de ce qui existe déja.
+Au début du projet -> bcp de recherche sur l'état de l'art, afin de trouver des preuves formelles de ce qui est faisable ou pas, ce qui marche...
+On constitue ainsi une bibliographie pour le rapport.
+A la fin, moins de recherche, mais toujours garder un oeil dessus et continuer l'état de l'art afin de garder un fil conducteur du travail.
+Il ne faut pas se fier uniquement à ses intuitions, car même si on à de grandes libertés, il faut toujours essayer de reprendre des travaux qui existent deja et dont on est certain de la validité, plutot que d'inventer qqch dont on a aucune preuve formelle de la validité meme si l'intuition semble bonne.
+
+Lorsque l'on cherche des articles scientifiques, il est important de regarder attentivement 3 choses:
+-la date de parution
+-le nombre de fois ou il a été cité
+-la revue dans lequel il a été publié
+
+Mise a jour sur slack des avancées: General, learning, stateoftheart, communication de maniere générale
+-> video conference toutes les semaines avec Nicolas du LaBri
+2 Slacks differents: Vocabulometer avec les 4 personnes qui travaillent sur ce projet
+		     IMP avec tout le labo et les meetings hebdomadaires
+
+
+Difficultés en javascript:
+incompréhensions au niveau du fonctionnement de l'asynchrone
+avec de l'aide et de la pratique: meilleure compréhension du langage, des callbacks, promesses,...
+
+
+Création d'un systeme de SRS basique:...
+
+
+ 
+
