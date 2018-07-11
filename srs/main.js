@@ -8,7 +8,8 @@ var ObjectId = mongoose.Types.ObjectId();
 
 // import of libraries
 var Word_local = require('./Word');
-var srslib = require('./srslib');
+//var srslib = require('./srslib');
+
 
 
 
@@ -368,18 +369,20 @@ console.log("===== Async function tests start here =====");
 
 console.log();
 //readWord("5b35e140fd68c817bd175064")
-findWordsByLastSeen("abc", S1)
+findWordsByLastSeen("111", 1)
 .then(res =>{
 	var idList = res;
+	console.log(res)
 	//console.log(res)
 	//console.log(res)
 	//console.log(res)
 })
 
 
-findWordIdByUserId("absolute", "111")
+findWordIdByUserId("able", "111")
 .then( res => {
 	var word_id = res;
+	readWord(res)
 	//console.log("word_id: " + word_id)
 	//readWord(res)
 	//succeedTest(res)
