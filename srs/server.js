@@ -22,7 +22,8 @@ const S0 = 1/3600,
 const SPACING = [S0, S1, S2, S3, S4, S5];
 
 
-
+app.use(bodyParser.urlencoded( { extended: false}));
+app.use(bodyParser.json())
 
 
 app.get('/', function(req, res) {
@@ -48,26 +49,8 @@ app.get('/findwordsbylastseen/:user_id/:time', srslib.findWordsByLastSeen)
 app.get('/findwordstolearn/:user_id', srslib.findWordsToLearn)
 
 
-app.get('/readword/:id', function (req, res) {
-    var time = new Date();
-    Srs.findOneAndUpdate({'_id': req.params.id},
-        {
-            $set:{'lastSeen': time},
-            $inc: {'readNb': 1 }
-        },
-        function(err, doc){
-            if (err) return console.error(err);
-            else {
-                if(doc.lv === 0) lvUp(doc._id);
-                if(doc.lv === 1 && doc.readNb >= 5) lvUp(doc._id);
-                //if(doc.lv === 2 && doc.readNb >= 12 && doc.testSuccess >= 1) lvUp(doc._id);
-                //if(doc.lv === 3 && doc.readNb >= 18 && doc.testSuccess >= 2) lvUp(doc._id);
-                //if(doc.lv === 4 && doc.readNb >= 25 && doc.testSuccess >= 5) lvUp(doc._id);
-                console.log("Word read");
-                console.log(time)
-            }
-        });
-})
+app.post('/readword/:word_id', srslib.readWord)
+app.get('/translate/:word', srslib.translateWord)
 
 
 //routes ends here

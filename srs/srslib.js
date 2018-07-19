@@ -2,12 +2,15 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const srslib = require("./srslib.js")
+const translate = require('google-translate-api')
+
 /*const libSportzones = require("./lib/sportzones/sportzones.js")
 const libMiddlewares = require("./lib/middlewares/middlewares.js")
 const libAdmins = require("./lib/admins/admins.js")*/
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId();
+
 
 const MONGO_ADDRESS = "ds151820.mlab.com:51820/vocabulometer-dev"
 
@@ -28,9 +31,6 @@ db.once("open", function(callback) {
 
 
 
-
-app.use(bodyParser.urlencoded( { extended: false}));
-app.use(bodyParser.json())
 
 //app.use(libMiddlewares.Cors);
 var SrsSchema = mongoose.Schema;
@@ -76,15 +76,15 @@ function lvUp(id) {
     Srs.findOne({'_id': id},function(err,doc){ //mettre le findone and update dans le callback
         if(err) return console.error(err)
         else newlv = doc.lv + 1;
-    })
-    Srs.findOneAndUpdate({'_id': id},
-        {$inc: {'lv': 1 }},
-        function(err, doc){
-            if (err) return console.error(err);
-            else {
-                console.log("Word level up: lv " + newlv);
-            }
-        });
+    },  Srs.findOneAndUpdate({'_id': id},
+          {$inc: {'lv': 1 }},
+          function(err, doc){
+              if (err) return console.error(err);
+              else {
+                  console.log("Word level up: lv " + newlv);
+              }
+          }))
+
 }
 
 function lvDown(id) {
@@ -299,6 +299,38 @@ module.exports = {
             }
             else { result.send("Word you want to remove doesn't exists") }
         })
+    },
+
+    readWord: (req,res) => {
+      var time = new Date()/*.toISOString()*/;
+      Srs.findOneAndUpdate({'_id': req.params.word_id},
+          {
+              $set:{'lastSeen': time},
+              $inc: {'readNb': 1 }
+          },
+          function(err, doc){
+              if (err) return console.error(err);
+              else {
+                  if(doc.lv === 0) lvUp(doc._id);
+                  if(doc.lv === 1 && doc.readNb >= 5) lvUp(doc._id);
+                  //if(doc.lv === 2 && doc.readNb >= 12 && doc.testSuccess >= 1) lvUp(doc._id);
+                  //if(doc.lv === 3 && doc.readNb >= 18 && doc.testSuccess >= 2) lvUp(doc._id);
+                  //if(doc.lv === 4 && doc.readNb >= 25 && doc.testSuccess >= 5) lvUp(doc._id);
+                  console.log("Word read");
+                  console.log(time)
+              }
+          });
+    },
+
+    translateWord: (req,result) => {
+      translate(req.params.word, {to: 'en'}).then(res => {
+          console.log(res.text);
+          result.json(res.text)
+
+      }).catch(err => {
+          console.error(err);
+      });
+
     }
 
 
