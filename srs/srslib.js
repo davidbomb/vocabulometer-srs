@@ -14,12 +14,13 @@ const ObjectId = mongoose.Types.ObjectId();
 
 const MONGO_ADDRESS = "ds151820.mlab.com:51820/vocabulometer-dev"
 
+// Time spacing for srs repetition
 const S0 = 1/3600,
-    S1 = 1/3600 * 10,
-    S2 = 1/3600 * 600,
-    S3 = 12,
-    S4 = 72,
-    S5 = 102;
+      S1 = 1/3600 * 10,
+      S2 = 1/3600 * 600,
+      S3 = 12,
+      S4 = 72,
+      S5 = 102;
 const SPACING = [S0, S1, S2, S3, S4, S5];
 
 mongoose.connect("mongodb://" + MONGO_ADDRESS, {user: 'clejacquet', pass: 'clejacquet-imp'});
@@ -113,8 +114,8 @@ function succeedTest(word_id) {
         });
 }
 
-function failTest(id) {
-    Srs.findOneAndUpdate({'_id': id},
+function failTest(word_id) {
+    Srs.findOneAndUpdate({'_id': word_id},
         {$set: {'testSuccess': 0 }},
         function(err, doc){
             if (err) return console.error(err);
@@ -331,6 +332,34 @@ module.exports = {
           console.error(err);
       });
 
+    },
+
+    succeedTest: (req,res) => {
+        var time = new Date()
+        Srs.findOneAndUpdate({'_id': req.params.word_id},
+            {$inc: {'testSuccess': 1 }},
+            {$set:{'lastSeen': time}},
+            function(err, doc){
+                if (err) return console.error(err);
+                else {
+                    if(doc.lv === 2 && doc.readNb >= 12 && doc.testSuccess >= 1) lvUp(doc._id);
+                    if(doc.lv === 3 && doc.readNb >= 18 && doc.testSuccess >= 2) lvUp(doc._id);
+                    if(doc.lv === 4 && doc.readNb >= 25 && doc.testSuccess >= 5) lvUp(doc._id);
+                    if(doc.lv === 5 && doc.testSuccess >= 6) removeWordFromSrs(doc._id)    // the word fit the condition to leave the srs
+                    console.log("test succeeded");
+                }
+            });
+    },
+    failTest: (req,res) => {
+        Srs.findOneAndUpdate({'_id': req.params.word_id},
+            {$set: {'testSuccess': 0 }},
+            function(err, doc){
+                if (err) return console.error(err);
+                else {
+                    if(doc.lv >= 3) lvDown(doc._id);
+                    console.log("test failed");
+                }
+            });
     }
 
 

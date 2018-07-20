@@ -35,7 +35,7 @@ app.get('/', function(req, res) {
 });
 app.get('/srs/getsize/:user_id', srslib.getSrsSize)
 app.get('/srs/getallwords/:user_id', srslib.findAllSrsWords)
-app.get('/srs/delword/:word_id', srslib.removeWordFromSrs)
+app.delete('/srs/delword/:word_id', srslib.removeWordFromSrs)
 app.get('/findwordidbyuserid/:user_id/:word', srslib.findWordIdByUserId)
 
 
@@ -52,6 +52,8 @@ app.get('/findwordstolearn/:user_id', srslib.findWordsToLearn)
 app.post('/readword/:word_id', srslib.readWord)
 app.get('/translate/:word', srslib.translateWord)
 
+app.post('/test/succeed/:word_id', srslib.succeedTest)
+app.post('/test/fail/:word_id', srslib.failTest)
 
 //routes ends here
 
