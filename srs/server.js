@@ -34,29 +34,37 @@ app.get('/', function(req, res) {
 
 });
 app.get('/srs/getsize/:user_id', srslib.getSrsSize)
+
 app.get('/srs/getallwords/:user_id', srslib.findAllSrsWords)
+
+app.post('/srs/addword/:user_id', srslib.addWordToSrs)
+
 app.delete('/srs/delword/:word_id', srslib.removeWordFromSrs)
+
+
+
 app.get('/findwordidbyuserid/:user_id/:word', srslib.findWordIdByUserId)
-
-
-
-
-// :time -> req.query
-//app.get('/findwordsbylastseen/:user_id/:time', srslib.findAllSrsWords, srslib.findWordsByLastSeen) //find all words that haven't be since since timeLastSeen
 
 app.get('/findwordsbylastseen/:user_id/:time', srslib.findWordsByLastSeen)
 
 app.get('/findwordstolearn/:user_id', srslib.findWordsToLearn)
+// :time -> req.query
+//app.get('/findwordsbylastseen/:user_id/:time', srslib.findAllSrsWords, srslib.findWordsByLastSeen) //find all words that haven't be since since timeLastSeen
 
 
-app.post('/readword/:word_id', srslib.readWord)
+
+app.get('/readword/:word_id', srslib.readWord)
+
 app.get('/translate/:word', srslib.translateWord)
 
+
 app.post('/test/succeed/:word_id', srslib.succeedTest)
+
 app.post('/test/fail/:word_id', srslib.failTest)
+
 //app.get('/srs/addwords/:user_id', srslib.addWordsToSrs)
 
-app.get('/srs/addword/:user_id', srslib.addWordToSrs)
+
 
 
 //routes ends here

@@ -215,6 +215,7 @@ module.exports = {
             { $match: { userId: req.params.user_id  } },
             { $group: { _id: null, count: { $sum: 1 }}}], function (err, result) {
             if (err) return console.log(err);
+            if (!result.length) console.log("user does not exists")
             else { console.log("heyyy");
                 res.json(result[0].count)}
         })
@@ -240,7 +241,7 @@ module.exports = {
 			}
 			if(!result.length) {
                 console.log("couldn't find word")
-                res.send("No such word exists")
+                res.json("No such word exists")
             }
 		});
 	},
@@ -251,6 +252,7 @@ module.exports = {
         Srs.aggregate( [
             { $match: { userId: req.params.user_id } }], function (err, result) {
             if (err) console.log(err);
+            if (!result.length) console.log("user does not exists")
             if (result.length){
                 if(req.params.time){ next() }
                 res.json(result);
@@ -280,7 +282,7 @@ module.exports = {
                     if(!idList.length) console.log("No remaining words last seen");
                     res.json(idList);
                 }
-                if(!result.length) res.send("No words last sees")
+                if(!result.length) res.send("No words last seen")
             })
     },
 
@@ -303,7 +305,7 @@ module.exports = {
         }
         if(!learningArray.length) {
             console.log("No remaining words to learn");
-            res.send("No remaining words to learn")
+            res.json("No remaining words to learn")
         }
     },
 
@@ -315,7 +317,7 @@ module.exports = {
             if(res) {
                 console.log("Word removed");
             }
-            else { result.send("Word you want to remove doesn't exists") }
+            else { console.log("Word you want to remove doesn't exists") }
         })
     },
 
@@ -327,7 +329,9 @@ module.exports = {
               $inc: {'readNb': 1 }
           },
           function(err, doc){
+            console.log(doc)
               if (err) return console.error(err);
+              if (doc === null) { console.log("Word does not fuckin exists") }
               else {
                   if(doc.lv === 0) lvUp(doc._id);
                   if(doc.lv === 1 && doc.readNb >= 5) lvUp(doc._id);
