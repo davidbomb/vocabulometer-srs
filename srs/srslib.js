@@ -21,7 +21,9 @@ const S0 = 1/3600,
       S3 = 12,
       S4 = 72,
       S5 = 102;
+
 const SPACING = [S0, S1, S2, S3, S4, S5];
+const SRS_MAX_SIZE = 50;
 
 mongoose.connect("mongodb://" + MONGO_ADDRESS, {user: 'clejacquet', pass: 'clejacquet-imp'});
 var db = mongoose.connection;
@@ -71,6 +73,21 @@ function readWord(word_id) {
             }
         });
 }
+
+function getSrsSize(user_id) { //count the number of words in an user's SRS
+  	return new Promise((resolve, reject) => {
+  	  var srsSize = 0;
+  	  Srs.aggregate( [
+  	    { $match: { userId: user_id  } },
+  	    { $group: { _id: null, count: { $sum: 1 }}}], function (err, result) {
+  				if (err) return reject(err);
+  	      if (result.length){
+  	        srsSize = result[0].count;
+  	        return resolve(srsSize);
+  	      }
+  	    });
+  	  })
+  	}
 
 function lvUp(id) {
     var newlv = 0;
@@ -360,7 +377,58 @@ module.exports = {
                     console.log("test failed");
                 }
             });
-    }
+    },
+
+  /*addWordsToSrs: (req, res) => { // wordlist : req.query -->  ?w1=...&w2=...&...
+  	return new Promise((resolve, reject) => {
+      console.log(req.query)
+      var wordList = req.query;
+  	  for(i in req.query){
+        console.log(wordList)
+  			if(getSrsSize(req.params.user_id) === SRS_MAX_SIZE){
+  				console.log("SRS_MAX_SIZE reached");
+  				// Do something
+  				// break;
+  			}
+  	    Srs.findOne({word: req.query[i], userId: req.params.user_id}, function (err, result){
+  	      if (err) return reject(err);
+  	      if (result === null){        //check that the word isn't already in the srs
+  	        console.log("word isn't in the srs... it will be added soon");
+            var currentWord = new Srs({word: req.query[i], userId: req.params.user_id});
+  	        currentWord.save(function (err, srs) {
+  	          if (err) return console.error(err);
+  						else {
+
+                console.log("done")
+                return resolve("success adding words in the srs")
+              }
+  	      })
+  	    }
+  	      if (result !== null) console.log("Error adding word... it is already in the srs");
+  	    })
+
+  	  }
+  	})
+  }*/
+  addWordToSrs: (req,res) => {
+    return new Promise((resolve, reject) => {
+      Srs.findOne({word: req.query.word, userId: req.params.user_id}, function (err, result){
+        if (err) return reject(err);
+        if (result === null){        //check that the word isn't already in the srs
+          //console.log("word isn't in the srs... it will be added soon");
+          var currentWord = new Srs({word: req.query.word, userId: req.params.user_id});
+          currentWord.save(function (err, srs) {
+            if (err) return console.error(err);
+            else {
+              console.log("word added to srs")
+              return resolve("success adding words in the srs")
+            }
+          })
+        }
+          if (result !== null) console.log("Error adding word... it is already in the srs");
+        })
+      })
+  }
 
 
 

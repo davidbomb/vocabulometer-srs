@@ -54,6 +54,10 @@ app.get('/translate/:word', srslib.translateWord)
 
 app.post('/test/succeed/:word_id', srslib.succeedTest)
 app.post('/test/fail/:word_id', srslib.failTest)
+//app.get('/srs/addwords/:user_id', srslib.addWordsToSrs)
+
+app.get('/srs/addword/:user_id', srslib.addWordToSrs)
+
 
 //routes ends here
 
