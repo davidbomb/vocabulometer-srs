@@ -48,6 +48,8 @@ app.get('/findwordidbyuserid/:user_id/:word', srslib.findWordIdByUserId)
 app.get('/findwordsbylastseen/:user_id/:time', srslib.findWordsByLastSeen)
 
 app.get('/findwordstolearn/:user_id', srslib.findWordsToLearn)
+
+app.get('/findwordsbylevel/:user_id/', srslib.findWordsByLevel)
 // :time -> req.query
 //app.get('/findwordsbylastseen/:user_id/:time', srslib.findAllSrsWords, srslib.findWordsByLastSeen) //find all words that haven't be since since timeLastSeen
 

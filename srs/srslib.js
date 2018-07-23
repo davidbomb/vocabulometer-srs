@@ -414,6 +414,7 @@ module.exports = {
   	  }
   	})
   }*/
+
   addWordToSrs: (req,res) => {
     return new Promise((resolve, reject) => {
       Srs.findOne({word: req.query.word, userId: req.params.user_id}, function (err, result){
@@ -432,6 +433,27 @@ module.exports = {
           if (result !== null) console.log("Error adding word... it is already in the srs");
         })
       })
+  },
+
+  findWordsByLevel: (req, res) => {
+  	return new Promise((resolve, reject) => {
+      const user_id = req.params.user_id.toString();
+      const level = parseInt(req.query.level, 10);
+  	  Srs.aggregate([
+  	    { $match: {$and:
+          [{ userId: user_id},
+          { lv: level } ] } } ],
+          function (err, result) {
+    	    	if (err) return reject(err);
+    	      if (result !== null){
+              console.log(result)
+    	        return resolve(res.json(result))
+    	      }
+    	      if (result.length)
+              console.log("No words level " + req.query.level + " found for this user")
+    					return resolve("No words level " + req.query.level + " found for this user")
+    	    });
+    	})
   }
 
 
