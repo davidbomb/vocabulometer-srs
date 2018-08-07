@@ -348,7 +348,7 @@ console.log(wordList1);
 console.log(wordList1.length);
 //wordList1[0].enterSrs();
 //srslib.addNextWords(52, wordList1, srsList, srsMaxSize);
-console.log(srsList);
+//console.log(srsList);
 console.log("SRS List length: " + srsList.length)
 
 
@@ -372,7 +372,7 @@ console.log();
 findWordsByLastSeen("111", 1)
 .then(res =>{
 	var idList = res;
-	console.log(res)
+	//console.log(res)
 	//console.log(res)
 	//console.log(res)
 	//console.log(res)
@@ -437,5 +437,16 @@ findWordsToLearn("abc")
 	console.log();
 	console.log("/////////// WORDS TO LEARN ////////////")
 	console.log();
-	console.log(res)
+	//console.log(res)
 })
+
+const thesaurus = require('powerthesaurus-api');
+
+thesaurus('cat')
+  .then(results => {
+		console.log("== thesaurus ==")
+    console.log(results)
+  })
+  .catch(error => {
+    console.error(error)
+  })

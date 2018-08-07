@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const srslib = require("./srslib.js")
-const translate = require('google-translate-api')
+const translate = require('google-translate-api');
+const thesaurus = require('powerthesaurus-api');
 
 /*const libSportzones = require("./lib/sportzones/sportzones.js")
 const libMiddlewares = require("./lib/middlewares/middlewares.js")
@@ -345,9 +346,10 @@ module.exports = {
     },
 
     translateWord: (req,result) => {
-      translate(req.params.word, {to: 'en'}).then(res => {
-          console.log(res.text);
-          result.json(res.text)
+      translate(req.params.word, {from: req.query.src, to: req.query.dst}).then(res => {
+        console.log(req.params.word);
+        console.log(res.text.split(", "))
+        result.json(res.text);
 
       }).catch(err => {
           console.error(err);
@@ -454,7 +456,20 @@ module.exports = {
     					return resolve("No words level " + req.query.level + " found for this user")
     	    });
     	})
-  }
+  },
+
+  findSynonym: (req, res) => {
+      const word = req.params.word.toString();
+      thesaurus('car')
+      .then(results => {
+        console.log(results)
+        res.json(results)
+      })
+      .catch(error => {
+        console.error(error)
+        res.json(error)
+      })
+    }
 
 
 

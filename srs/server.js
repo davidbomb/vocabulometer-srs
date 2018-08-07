@@ -55,9 +55,11 @@ app.get('/findwordsbylevel/:user_id/', srslib.findWordsByLevel)
 
 
 
-app.get('/readword/:word_id', srslib.readWord)
+app.post('/readword/:word_id', srslib.readWord)
 
 app.get('/translate/:word', srslib.translateWord)
+
+app.get('/synonym/:word', srslib.findSynonym)
 
 
 app.post('/test/succeed/:word_id', srslib.succeedTest)

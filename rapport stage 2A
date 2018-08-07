@@ -1,19 +1,29 @@
 Description:
 
-Osaka Prefectoral University (OPU)
+1) Presentation du japon, présentation d'osaka(ville,habitants,traditions,...), de Sakai
+	-> pourquoi j'ai voulu venir ici ? culture, difference, cours de japonais
+	-> faire de la recherche ? pour avoir une autre approche
+2) présentation de OPU Osaka Prefectoral University (OPU)
 France un grand laboratoire -> laBRI
 Osaka -> pleins de petits labos au sein d'une grande université
 Labo : < 50 personnes avec environ 30 éleves et 5 ou 6 enseignants
 IDAKS : compagnie au sein de OPU qui pilote unn projet sur 5 ans avec financement de l'état
 -> permet de faire venir des "visiting researchers" sans passer par les frais d'université.
- 
 
+3)Présentation du laboratoire: learning (dans quel but, qui fait quoi ?,diversité,...)
 
 Reunion toutes les semaines
 Organisation: 
 Chacun parles d'un article scientifique en rappport avec sa thematique, ... etat de l'art. Permet de connaitre plus sur le sujzt, savoir ce qui a été fait, ce qui peut etre amélioré ...
 Ensuite, rappel de ses taches, bilan du travail effectué puis planification des taches futures...
 1ere reunion: rien a dire mais permet de mieux cerner le travail et l'avancement de chacun : contextualisation
+
+présentation de mon groupe de recherche: Vocabulometer
+Contextualisation, Problématique,...
+Mon rôle dans tout ca
+-> srs  expliquer le pourquoi du comment
+
+
 
 
 Mini journal de bord:
@@ -43,6 +53,7 @@ Mise a jour sur slack des avancées: General, learning, stateoftheart, communica
 2 Slacks differents: Vocabulometer avec les 4 personnes qui travaillent sur ce projet
 		     IMP avec tout le labo et les meetings hebdomadaires
 
+creation d'un affichage dynamique avec angular pour avoir un résultat graphique d'un quizz de mots
 
 Difficultés en javascript:
 incompréhensions au niveau du fonctionnement de l'asynchrone
@@ -50,6 +61,71 @@ avec de l'aide et de la pratique: meilleure compréhension du langage, des callb
 
 
 Création d'un systeme de SRS basique:...
+remplissage de la base de données mongodb
+creation d'une API avec express accedant aux fonctions traitant le SRS
+
+Finalement, le but ultime du srs est pour un user donné, de lui renvoyer les mots qu'il doit apprendre à un moment donné.
+On se sert donc du degré de connaissance des mots (leur niveau) et de la derniere fois qu'ils ont été vus.
+utilisation de l'interface créee pour afficher les données récupérees depuis l'API
+
+
+Conventions: MVC -> controller : ne traite pas l'information, il récupere juste des données
+		 -> modele : va fetch les données puis les transmet au controlleur
+
+
+Une fois le serveur permettant de controler le SRS totalement fini, intégration du code de ce dernier au serveur du site.
+Avec clément, vérification quetout marche correctement.
+Preque aucuns bugs: l'intégration à été tres facile et n'a necessité que quelques changements, majoritairement pour la cohérence avec le code déja existant (exemple: pour satisfaire le modele MVC)
+
+Après 1 mois et demi de stage, j'ai le choix de continuer ce que je fais, ou de partir vers quelque chose d'autre: développer l'appli mobile du site (en react). Même si cela m'aurait bien plu, je ne pense pas avoir le temps d'apprendre une nouvelle techno et de fournir un rendu satisfaisant avant la fin de mon stage. Je préfere donc finir ce que j'ai commencé, pour avoir un rendu bien plus complet à la fin.
+
+
+
+5) 
+Mytho sur l'etat de l'art des applications existantes
+
+Nouvelle etape de reflexion: Quels items d'apprentissage mettre en oeuvre ?
+Mise en place d'un quizz basique avec la langue a apprendre et la langue maternelle.
+Grace à l'api de google traduction: on récupere la traduction des mots, précisant la langue source et la langue destination.
+J'ai repris l'interface graphique récedemment développée sous angular, que j'ai un peu amélioré.
+Les mots du SRS que l'utilisateur doit apprendre sont récupérés avec le serveur depuis la base de donnée.
+Ils s'affichent dans une liste à coté de leur traduction, pour que l'utilisateur puisse les réviser.
+Il peut ensuite cacher cette liste et démarrer le quizz. Les mots s'affichent un par un et l'utilisateur doit rentrer leur traduction.
+Si la réponse est correcte, le score augmente de 1, et la base de donnée est mise a jour (le mot est lu une fois, et un champ précise que le test a été réussi, le niveau du mot peut éventuellement augmenter)
+Sinon, on met a jour le champ correspondant a un test echoué.
+
+Pour améliorer le potentiel éducatif de ce quizz et favoriser l'apprentissage du mot, je décide aussi d' ajouter une synthèse vocale du mot, pour que l'utilisateur puisse connaître sa sonorité, et le retienne plus facilement.
+J'ai donc recherché une API qui fait de la synthese vocale.
+J'ai ensuite intégré cette synthese au quizz et il suffit d'appuyer sur un bouton dédié pour connaitre la sonorité du mot.
+
+image ?
+L'idée suivante était d'integrer des images pour illustrer les mots. Cela aurait été un atout majeur:
+Pour retenir, il est plus efficace de solliciter pleins de zones différentes du cerveau. Si plusieurs types de mémoires sont sollicitées on retient mieux( ecriture, sonore, visuel). 
+Cependant il est difficile de trouver une bibliotheque d'images de bonne qualité... 
+les images sont parfois peu ou pas représentative du mot,et il faudrait checker ces dernieres pour vérifier qu'elles sont conformes.
+De plus, certains mots ne sont pas possible ou tres complexe à imager.
+Une solution simple ne peut pas etre envisagée, et il faudrait avoir tout une équipe pour s'occuper de trier chaque image, ce qui n'est pas réaliste dans mon cas. Bien que tres enviée, cette idée a donc été rejetée.
+
+Synonym quizz:
+idée: proposer un quizz qui ne fasse intervenir qu'une seule langue.
+Grace a une api de vocabulaire: on va rechercher les synonymes d'un mot, et en proposer un (détailler comment) pertinent que l'on va récupérer avec angular
+On donne un quizz avec des mots a apprendre, et on présent a l'utilisateur 4 reponses: 1 synonyme et 3 mots random.
+De la meme maniere, il y a aussi une synthese vocale pour pouvoir ecouter le son du mot.
+
+Feedback: Apres avoir effectué un quizz, on affiche a l'utilisateur une page lui permettant de visionner les mots pour lesquels il à donné une mauvaise réponse ( et leur traduction)
+
+Rendre un travail modifiable sans avoir connaissance de tout le fonctionnement interne du code (boite noire)
+-> Ne garder que des variables paramétrables, qui gèrent l'ensemble du fonctionnement du SRS, afin de pouvoir modifier son fonctionnement selon des tests futurs, et augmenter son efficacité.
+De plus, certains aspects n'ont pas étés clairement définis et certaines choses peuvent changer(ex: condition pour passer au niveau superieur)
+
+Petite modification au passage d'une partie du fonctionnement du SRS. Une partie de ce qui était attendue était floue pour moi et je l'avais mal comprise ! ( passage d un mot au niveau superieur)
+Le système est en même temps légerement simplifié, l'utilisateur le comprends donc un peu mieux car il est moins "opaque".
+permet d'éviter que l'utilisateur ne soit perdu car il ne comprends rien au fonctionnement du systeme.
+
+On peut maintenant, a laide des variables de config, décider du nombre de niveaux disponible, modifier l'espacement temporel du SRS correspondant à chaque niveau, et paramétrer le nombre de niveaux perdus pour un échec, le tout trés simplement, sans comprendre le fonctionnement détaillé du code.  
+
+
+			 
 
 
  
