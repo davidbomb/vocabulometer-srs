@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const srslib = require("./srslib.js")
 const translate = require('google-translate-api');
 const thesaurus = require('powerthesaurus-api');
+const dictionary = require('owlbot-dictionary');
 
 /*const libSportzones = require("./lib/sportzones/sportzones.js")
 const libMiddlewares = require("./lib/middlewares/middlewares.js")
@@ -464,6 +465,18 @@ module.exports = {
       .then(results => {
         console.log(results)
         res.json(results)
+      })
+      .catch(error => {
+        console.error(error)
+        res.json(error)
+      })
+    },
+
+    findDefinition: (req, res) => {
+      const word = req.params.word.toString();
+      dictionary.define(word)
+      .then( doc => {
+        res.json(doc[0].defenition.split(',')[0])
       })
       .catch(error => {
         console.error(error)

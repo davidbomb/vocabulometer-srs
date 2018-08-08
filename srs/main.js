@@ -441,8 +441,11 @@ findWordsToLearn("abc")
 })
 
 const thesaurus = require('powerthesaurus-api');
+const define = require('owlbot-dictionary');
 
-thesaurus('cat')
+
+
+thesaurus('car')
   .then(results => {
 		console.log("== thesaurus ==")
     console.log(results)
@@ -450,3 +453,7 @@ thesaurus('cat')
   .catch(error => {
     console.error(error)
   })
+
+
+define.define('merge')
+.then(res => console.log(res))

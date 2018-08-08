@@ -61,6 +61,8 @@ app.get('/translate/:word', srslib.translateWord)
 
 app.get('/synonym/:word', srslib.findSynonym)
 
+app.get('/definition/:word', srslib.findDefinition)
+
 
 app.post('/test/succeed/:word_id', srslib.succeedTest)
 
