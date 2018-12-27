@@ -14,7 +14,7 @@ IDAKS : compagnie au sein de OPU qui pilote unn projet sur 5 ans avec financemen
 
 Reunion toutes les semaines
 Organisation: 
-Chacun parles d'un article scientifique en rappport avec sa thematique, ... etat de l'art. Permet de connaitre plus sur le sujzt, savoir ce qui a été fait, ce qui peut etre amélioré ...
+Chacun parle d'un article scientifique en rappport avec sa thematique, ... etat de l'art. Permet de connaitre plus sur le sujzt, savoir ce qui a été fait, ce qui peut etre amélioré ...
 Ensuite, rappel de ses taches, bilan du travail effectué puis planification des taches futures...
 1ere reunion: rien a dire mais permet de mieux cerner le travail et l'avancement de chacun : contextualisation
 
@@ -32,7 +32,8 @@ Mini journal de bord:
 Travail avec un 3a info de l'enseirb
 Comprendre ce qu'il a deja fait (stage de 2a aussi a osaka opu) et lister les axes de travail possibles
 Discussion et reflexion avec lui et le maitre de stage pour determiner un sujet de stage avec la contrainte des delais (3 mois). Sujet ne doit pas etre trop long
-Recherche -> grande liberté sur le choix du travail, avec peu de restriction et bcp d'idées personnelles et d'autonomie.
+
+### ccl: **Recherche -> grande liberté sur le choix du travail, avec peu de restriction et bcp d'idées personnelles et d'autonomie.
 
 
 apprentissage de angular 5 a travers un tuto
@@ -122,10 +123,40 @@ Petite modification au passage d'une partie du fonctionnement du SRS. Une partie
 Le système est en même temps légerement simplifié, l'utilisateur le comprends donc un peu mieux car il est moins "opaque".
 permet d'éviter que l'utilisateur ne soit perdu car il ne comprends rien au fonctionnement du systeme.
 
-On peut maintenant, a laide des variables de config, décider du nombre de niveaux disponible, modifier l'espacement temporel du SRS correspondant à chaque niveau, et paramétrer le nombre de niveaux perdus pour un échec, le tout trés simplement, sans comprendre le fonctionnement détaillé du code.  
+On peut maintenant, a l'aide des variables de config, décider du nombre de niveaux disponible, modifier l'espacement temporel du SRS correspondant à chaque niveau, et paramétrer le nombre de niveaux perdus pour un échec, le tout trés simplement, sans comprendre le fonctionnement détaillé du code.
+
+Nouveau feature: Liste des mots ou l'utilisateur a mal répondu en fin de quizz, pour les lui faire reviser et avoir ainsi un feedback.   
+
+Nouveau et dernier Item implémenté:
+Quizz de définitions:
+L'utilisateur révise sa liste de vocabulaire, puis peut passer un quizz ou il doit associer mots et definitions.
+Les définitions et les mots sont dans une seule langue, celle que l'user veut apprendre.
+Ce type de systeme d'apprentissage à partir de la langue elle même n'est pas insencé car l'application est destiné à des gens savant déja un peu parler, et voulant acquérir du vocabulaire.
+Idée: quizz ou l'on ne peut pas perdre, seulement gagner.
+L'utilisateur clique sur un mot, puis sur une définition. Si il obtient une bonne réponse, les deux disparaissent, sinon rien ne se passe.
+
+Ce systeme n'update pas le srs car on ne peut pas "perdre", mais permet une approche différente, favorisant l'apprentissage, et peut donner une premiere approche à des mots inconnus par exemple.
+
+derniere étape: intégration de tout le front crée en angular au site de vocabulometer
+Puis, documentation en anglais de tout le travail effectué pour que le labo puisse le réutiliser, le modifier si besoin.
+
+Au final: travail fourni:
+SRS -> creation de la base de données, implémentation du systeme de srs, qui modifie la base de donnée.
+	intégration de ce srs au serveur déja existant du site web vocabulometer
+Angular -> creation de 3 items de travail:
+	Liste de vocabulaire des mots a apprendre,
+	1) Quizz basique, question réponse mot <-> traduction
+	2) Quizz synonyme, QCM mot <-> bon synonyme
+	3) Quizz definitions, QCM association mot <-> definition
+
+Ces items de travail utilisent le SRS (les mots proposés viennent du SRS) et modifient la base de données (bonne réponse/ mauvaise réponse) 
+Pour ces exercices, synthese vocale, et liste de feedback à la fin 
 
 
-			 
+relire pour trouver la ccl
+Axes d'améliorations: modes de travail, posssibilités du last item
+contexte: dire un peu plus de l'etat de l'art
+parler des bureaux sans chaussures !
 
 
  

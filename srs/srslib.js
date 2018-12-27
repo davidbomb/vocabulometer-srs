@@ -476,7 +476,7 @@ module.exports = {
       const word = req.params.word.toString();
       dictionary.define(word)
       .then( doc => {
-        res.json(doc[0].defenition.split(',')[0])
+        res.json(doc[0].defenition)
       })
       .catch(error => {
         console.error(error)
